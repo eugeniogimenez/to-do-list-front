@@ -56,9 +56,13 @@ class TaskIncompleted extends HTMLElement {
     mainContainer.classList.add("task-incompleted-container");
 
     // Header
-    const header = document.createElement("header");
-    header.textContent = "Tareas Pendientes";
-    mainContainer.appendChild(header);
+    // const header = document.createElement("header");
+    // header.textContent = "Tareas Pendientes";
+    // mainContainer.appendChild(header);
+
+    // Agregar el componente HeaderComponent
+    const headerComponent = document.createElement("header-component");
+    mainContainer.appendChild(headerComponent);
 
     // Lista de tareas pendientes
     const taskList = document.createElement("ul");
