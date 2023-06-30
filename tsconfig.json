@@ -3,9 +3,9 @@
       "module": "CommonJS",
       "target": "ESNext",
       "moduleResolution": "node",
-      "resolveJsonModule": true
+      "resolveJsonModule": true,
   },
-  // "files": ["server/api.ts"],
+
   
   "exclude": [
       "node_modules"

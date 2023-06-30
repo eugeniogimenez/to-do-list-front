@@ -1,5 +1,6 @@
 import "./src/pages/welcome";
 import "./src/pages/task-incompleted";
+import "./src/pages/task-completed";
 
 import "./src/router/router";
 import { configureRouter } from "./src/router/router";
