@@ -1,4 +1,5 @@
-import { API_URL } from "../../config";
+const API_URL =
+  "https://to-do-list-back-3mpv.onrender.com/ToDoList-1.0-SNAPSHOT";
 
 class TaskIncompleted extends HTMLElement {
   constructor() {
@@ -14,6 +15,7 @@ class TaskIncompleted extends HTMLElement {
   render() {
     const style = document.createElement("style");
     style.textContent = `
+    
       .task-incompleted-container {
         padding: 20px;
       }
@@ -56,9 +58,9 @@ class TaskIncompleted extends HTMLElement {
     mainContainer.classList.add("task-incompleted-container");
 
     // Header
-    // const header = document.createElement("header");
-    // header.textContent = "Tareas Pendientes";
-    // mainContainer.appendChild(header);
+    const header = document.createElement("header");
+    header.textContent = "";
+    mainContainer.appendChild(header);
 
     // Agregar el componente HeaderComponent
     const headerComponent = document.createElement("header-component");
@@ -102,7 +104,7 @@ class TaskIncompleted extends HTMLElement {
     const taskList = this.shadowRoot.querySelector(".task-list");
 
     // Obtener las tareas pendientes de la API
-    fetch(API_URL + "/ToDoList/SvTask?completed=false")
+    fetch(API_URL + "/SvTask?completed=false")
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -123,22 +125,25 @@ class TaskIncompleted extends HTMLElement {
         // Mostrar las tareas pendientes
         tasksWithDescription.forEach((task) => {
           const taskItem = document.createElement("li");
+          taskItem.classList.add("task-item");
 
           // Campo de texto para editar la descripción
           const taskInput = document.createElement("input");
           taskInput.value = task.descripcion;
+          taskInput.classList.add("task-input");
           taskItem.appendChild(taskInput);
 
           // Botón de "Editar"
           const editButton = document.createElement("button");
           editButton.textContent = "Editar";
+          editButton.classList.add("edit-button");
           taskItem.appendChild(editButton);
 
           editButton.addEventListener("click", () => {
             const taskId = task.id;
             const newDescription = taskInput.value;
             // Realizar solicitud a la API para editar la tarea
-            fetch(API_URL + "/ToDoList/SvTask", {
+            fetch(API_URL + "/SvTask", {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
@@ -172,13 +177,14 @@ class TaskIncompleted extends HTMLElement {
           // Botón de "Marcar como realizada"
           const markCompletedButton = document.createElement("button");
           markCompletedButton.textContent = "Marcar como realizada";
+          markCompletedButton.classList.add("mark-completed-button");
           taskItem.appendChild(markCompletedButton);
 
           markCompletedButton.addEventListener("click", () => {
             const taskId = task.id;
             const newDescription = taskInput.value;
             // Realizar solicitud a la API para marcar la tarea como realizada
-            fetch(API_URL + "/ToDoList/SvTask?id=" + taskId, {
+            fetch(API_URL + "/SvTask?id=" + taskId, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
@@ -227,7 +233,7 @@ class TaskIncompleted extends HTMLElement {
     const taskList = this.shadowRoot.querySelector(".task-list");
 
     // Realizar solicitud a la API para agregar la nueva tarea
-    fetch(API_URL + "/ToDoList/SvTask", {
+    fetch(API_URL + "/SvTask", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

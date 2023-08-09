@@ -4,6 +4,8 @@ import "./src/pages/task-completed";
 
 import "./src/components/header";
 import "./src/components/menu";
+import "./src/components/footer";
+import "./src/components/task-container";
 
 import "./src/router/router";
 import { configureRouter } from "./src/router/router";

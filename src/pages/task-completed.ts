@@ -1,53 +1,9 @@
-import { API_URL } from "../../config";
-
 class TaskCompleted extends HTMLElement {
   shadow: ShadowRoot;
 
   constructor() {
     super();
     this.shadow = this.attachShadow({ mode: "open" });
-
-    const style = document.createElement("style");
-    style.textContent = `
-      .task-completed-container {
-        padding: 20px;
-      }
-
-      header {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 10px;
-        background-color: #202c33;
-        color: #fff;
-      }
-
-      .task-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      .chat-container {
-        margin-top: 20px;
-      }
-
-      .chat-input {
-        width: 100%;
-        padding: 10px;
-        font-size: 16px;
-      }
-
-      .send-button {
-        margin-top: 10px;
-        padding: 8px 16px;
-        font-size: 16px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-      }
-    `;
-    this.shadow.appendChild(style);
   }
 
   connectedCallback() {
@@ -55,108 +11,53 @@ class TaskCompleted extends HTMLElement {
   }
 
   render() {
-    const mainContainer = document.createElement("div");
-    mainContainer.classList.add("task-completed-container");
+    const style = document.createElement("style");
+    style.textContent = `
+    
+      .header {
+        grid-area: header;
+        border: solid red 1px;
+      }
 
-    // Header
-    const header = document.createElement("header");
-    header.textContent = "Tareas Realizadas";
-    mainContainer.appendChild(header);
+      .task {
+        grid-area: task;
+        border: solid blue 1px;
+      }
 
-    // Lista de tareas realizadas
-    const taskList = document.createElement("ul");
-    taskList.classList.add("task-list");
+      .footer {
+        grid-area: footer;
+        border: solid red 1px;
+      }
 
-    // Función para mostrar las tareas realizadas
-    const showCompletedTasks = () => {
-      console.log("Soy showCompletedTasks");
+      div.task-completed-page {
+        height: 100vh;
+        display: grid;
+        grid-template-rows: 10% 70% 20%;
+        grid-template-columns: 100%;
 
-      // Obtener las tareas realizadas de la API
-      fetch(API_URL + "/ToDoList/SvTask?completed=true")
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error("Error al obtener las tareas realizadas.");
-          }
-        })
-        .then((tasks) => {
-          // Filtrar las tareas sin descripción
-          const tasksWithDescription = tasks.filter((task) => task.descripcion);
+        grid-template-areas: 
+          "header"
+          "task"
+          "footer";
+      }
 
-          // Ordenar las tareas por el ID en orden ascendente
-          tasksWithDescription.sort((a, b) => a.id - b.id);
+      
+    `;
+    this.shadow.appendChild(style);
 
-          // Limpiar la lista de tareas antes de mostrar las nuevas
-          taskList.innerHTML = "";
+    const div = document.createElement("div");
+    div.className = "task-completed-page";
+    div.innerHTML = `
+    
+    <header-component class="header"></header-component>
+    <task-component class="task"></task-component>
+    <footer-component class="footer"></footer-component>
 
-          // Mostrar las tareas realizadas
-          tasksWithDescription.forEach((task) => {
-            console.log("task: ", task);
 
-            const taskItem = document.createElement("li");
-
-            // Mostrar la descripción de la tarea
-            const descriptionSpan = document.createElement("span");
-            descriptionSpan.textContent = task.descripcion;
-            taskItem.appendChild(descriptionSpan);
-
-            // Botón de "Marcar como no realizada"
-            const markIncompleteButton = document.createElement("button");
-            markIncompleteButton.textContent = "Marcar como no realizada";
-            taskItem.appendChild(markIncompleteButton);
-
-            markIncompleteButton.addEventListener("click", () => {
-              const taskId = task.id;
-              // Realizar solicitud a la API para marcar la tarea como no realizada
-              fetch(API_URL + "/ToDoList/SvTask?id=" + taskId, {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  id: taskId,
-                  task: {
-                    id: taskId,
-                    completed: false,
-                  },
-                }),
-              })
-                .then((response) => {
-                  if (response.ok) {
-                    // La tarea se marcó como no realizada
-                    // Actualizar la interfaz de usuario según sea necesario
-                    showCompletedTasks(); // Mostrar la lista actualizada de tareas realizadas
-                  } else {
-                    // Error al marcar la tarea como no realizada
-                    console.error(
-                      "Error al marcar la tarea como no realizada:",
-                      response.statusText
-                    );
-                  }
-                })
-                .catch((error) => {
-                  console.error(
-                    "Error al marcar la tarea como no realizada:",
-                    error
-                  );
-                });
-            });
-
-            taskList.appendChild(taskItem);
-          });
-        })
-        .catch((error) => {
-          console.error("Error al obtener las tareas realizadas:", error);
-        });
-    };
-
-    // Mostrar las tareas realizadas al cargar la página
-    showCompletedTasks();
-
-    mainContainer.appendChild(taskList);
-
-    this.shadow.appendChild(mainContainer);
+      
+    `;
+    this.shadow.appendChild(style);
+    this.shadow.appendChild(div);
   }
 }
 
