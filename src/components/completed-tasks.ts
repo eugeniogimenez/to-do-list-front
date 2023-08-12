@@ -133,7 +133,13 @@ class TaskComponent extends HTMLElement {
     const container = document.createElement("div");
     container.className = "taskCompleted-container";
 
+    // Creamos el título
+    const title = document.createElement("h2");
+    title.textContent = "Tareas Realizadas";
+    title.className = "title";
+
     // Adjuntamos el contenedor principal al shadow DOM.
+    this.shadow.appendChild(title);
     this.shadow.appendChild(container);
 
     const style = document.createElement("style");
@@ -165,6 +171,14 @@ class TaskComponent extends HTMLElement {
       
       .tarea_no-completada .eliminar-tarea {
 
+      }
+
+      .title {
+        margin-top: 0px;
+        height: 5%;
+        padding: 20px;
+        background-color: #f4f4f4;
+        
       }
         
       

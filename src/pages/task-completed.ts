@@ -16,17 +16,14 @@ class TaskCompleted extends HTMLElement {
     
       .header {
         grid-area: header;
-        border: solid red 1px;
       }
 
       .task {
         grid-area: task;
-        border: solid blue 1px;
       }
 
       .footer {
         grid-area: footer;
-        border: solid red 1px;
       }
 
       div.task-completed-page {
