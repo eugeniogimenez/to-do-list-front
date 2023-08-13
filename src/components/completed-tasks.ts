@@ -168,10 +168,6 @@ class TaskComponent extends HTMLElement {
       .taskCompleted_buttons {
         
       }
-      
-      .tarea_no-completada .eliminar-tarea {
-
-      }
 
       .title {
         margin-top: 0px;
