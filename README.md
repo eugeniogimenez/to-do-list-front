@@ -18,7 +18,7 @@ El presente frontend se penso a modo de prueba del backend, ya que si bien exist
 Por tanto, se pensó más en funcionalidad, dejando la parte de diseño para un trabajo posterior. Se utliza TYPESCRIPT para darle un tipado más estricto y poder tener así un mejor control del funcionamiento.
 
 ## Arquitectura:
-Se utiliza una arquitectura de Single Page App (SPA), con "Pages y Components" que se van renderizando de acuerdo a la necesidad del usuario.
+Se utiliza una arquitectura de Single Page App (SPA), con "Pages y Components" que se van renderizando de acuerdo a la necesidad del usuario, vía un "router" que direcciona las peticiones de los  mismos.
 
 ## Postman:
 La dirección de la documentación postman para hacer uso de la app vía APIs se brinda aquí:
